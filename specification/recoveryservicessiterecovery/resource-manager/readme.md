@@ -25,6 +25,25 @@ directive:
   - from: service.json
     suppress: OAV131 
     reason: Testing purpose.
+
+  - from: service.json 
+    suppress: R4010
+    reason: Testing purpose
+
+  - from: service.json
+    suppress:
+    - R4009
+    reason: suppressing system data for 2021-02-10
+
+  - from: service.json
+    suppress:
+      - R4010
+    reason: suppressing default error response as ASR is an old service and implements error response in a different format.
+
+  - from: service.json
+    suppress:
+      - R4011
+    reason: service implements 204 for delete and DeleteOperationResponses error was falsely raised.
 ```
 
 ## Configuration
@@ -35,7 +54,7 @@ These are the global settings for the RecoveryServicesSiteRecovery API.
 
 ``` yaml
 openapi-type: arm
-tag: package-2018-07
+tag: package-2021-02
 
 directive:
   - where:
@@ -43,6 +62,15 @@ directive:
     suppress:
       - UniqueResourcePaths
 	  
+```
+
+### Tag: package-2021-02
+
+These settings apply only when `--tag=package-2021-02` is specified on the command line.
+
+```yaml $(tag) == 'package-2021-02'
+input-file:
+  - Microsoft.RecoveryServices/stable/2021-02-10/service.json
 ```
 
 ### Tag: package-2018-07
@@ -61,15 +89,6 @@ These settings apply only when `--tag=package-2018-01` is specified on the comma
 ```yaml $(tag) == 'package-2018-01'
 input-file:
   - Microsoft.RecoveryServices/stable/2018-01-10/service.json
-```
-
-### Tag: package-2016-08
-
-These settings apply only when `--tag=package-2018-01` is specified on the command line.
-
-``` yaml $(tag) == 'package-2018-01'
-input-file:
-- Microsoft.RecoveryServices/stable/2018-01-10/service.json
 ```
 
 ### Tag: package-2016-08
